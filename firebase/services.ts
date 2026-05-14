@@ -38,30 +38,22 @@ export async function deleteImage(): Promise<void> {
 
 // ─── Products ─────────────────────────────────────────────
 
-const STORAGE_KEY = "codee_products";
-
-function getStoredProducts(): Product[] {
-  if (typeof window === "undefined") return [];
-
-  const data = localStorage.getItem(STORAGE_KEY);
-
-  return data ? JSON.parse(data) : [];
-}
-
-function saveStoredProducts(products: Product[]) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
-}
-
 export async function getProducts(): Promise<Product[]> {
-  return getStoredProducts();
+  const snap = await getDoc(doc(db, "content", "products"));
+
+  return snap.exists()
+    ? snap.data().items || []
+    : [];
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
-  return getStoredProducts().find((p) => p.id === id) || null;
+  const products = await getProducts();
+
+  return products.find((p) => p.id === id) || null;
 }
 
 export async function addProduct(data: Omit<Product, "id">): Promise<string> {
-  const products = getStoredProducts();
+  const products = await getProducts();
 
   const newProduct: Product = {
     id: Date.now().toString(),
@@ -70,50 +62,52 @@ export async function addProduct(data: Omit<Product, "id">): Promise<string> {
 
   products.unshift(newProduct);
 
-  saveStoredProducts(products);
+  await setDoc(doc(db, "content", "products"), {
+    items: products,
+  });
 
   return newProduct.id;
 }
 
-export async function updateProduct(id: string, data: Partial<Product>): Promise<void> {
-  const products = getStoredProducts().map((p) =>
+export async function updateProduct(
+  id: string,
+  data: Partial<Product>
+): Promise<void> {
+  const products = await getProducts();
+
+  const updated = products.map((p) =>
     p.id === id ? { ...p, ...data } : p
   );
 
-  saveStoredProducts(products);
+  await setDoc(doc(db, "content", "products"), {
+    items: updated,
+  });
 }
 
 export async function deleteProduct(id: string): Promise<void> {
-  const products = getStoredProducts().filter((p) => p.id !== id);
+  const products = await getProducts();
 
-  saveStoredProducts(products);
+  const filtered = products.filter((p) => p.id !== id);
+
+  await setDoc(doc(db, "content", "products"), {
+    items: filtered,
+  });
 }
-
-// ─── News ─────────────────────────────────────────────
-
-const NEWS_KEY = "codee_news";
-
-function getStoredNews(): NewsItem[] {
-  if (typeof window === "undefined") return [];
-
-  const data = localStorage.getItem(NEWS_KEY);
-
-  return data ? JSON.parse(data) : [];
-}
-
-function saveStoredNews(news: NewsItem[]) {
-  localStorage.setItem(NEWS_KEY, JSON.stringify(news));
-}
+/// ─── News ─────────────────────────────────────────────
 
 export async function getNews(): Promise<NewsItem[]> {
-  return getStoredNews();
+  const snap = await getDoc(doc(db, "content", "news"));
+
+  return snap.exists()
+    ? snap.data().items || []
+    : [];
 }
 
 export async function addNews(
   data: Omit<NewsItem, "id">
 ): Promise<string> {
 
-  const news = getStoredNews();
+  const news = await getNews();
 
   const newItem: NewsItem = {
     id: Date.now().toString(),
@@ -122,7 +116,9 @@ export async function addNews(
 
   news.unshift(newItem);
 
-  saveStoredNews(news);
+  await setDoc(doc(db, "content", "news"), {
+    items: news,
+  });
 
   return newItem.id;
 }
@@ -132,47 +128,44 @@ export async function updateNews(
   data: Partial<NewsItem>
 ): Promise<void> {
 
-  const news = getStoredNews().map((n) =>
+  const news = await getNews();
+
+  const updated = news.map((n) =>
     n.id === id ? { ...n, ...data } : n
   );
 
-  saveStoredNews(news);
+  await setDoc(doc(db, "content", "news"), {
+    items: updated,
+  });
 }
 
 export async function deleteNews(id: string): Promise<void> {
 
-  const news = getStoredNews().filter(
+  const news = await getNews();
+
+  const filtered = news.filter(
     (n) => n.id !== id
   );
 
-  saveStoredNews(news);
+  await setDoc(doc(db, "content", "news"), {
+    items: filtered,
+  });
 }
-
 // ─── Upcoming Projects ─────────────────────────────────────────────
 
-const UPCOMING_KEY = "codee_upcoming_projects";
-
-function getStoredUpcomingProjects(): UpcomingProject[] {
-  if (typeof window === "undefined") return [];
-
-  const data = localStorage.getItem(UPCOMING_KEY);
-
-  return data ? JSON.parse(data) : [];
-}
-
-function saveStoredUpcomingProjects(projects: UpcomingProject[]) {
-  localStorage.setItem(UPCOMING_KEY, JSON.stringify(projects));
-}
-
 export async function getUpcomingProjects(): Promise<UpcomingProject[]> {
-  return getStoredUpcomingProjects();
+  const snap = await getDoc(doc(db, "content", "upcoming"));
+
+  return snap.exists()
+    ? snap.data().items || []
+    : [];
 }
 
 export async function addUpcomingProject(
   data: Omit<UpcomingProject, "id">
 ): Promise<string> {
 
-  const projects = getStoredUpcomingProjects();
+  const projects = await getUpcomingProjects();
 
   const newProject: UpcomingProject = {
     id: Date.now().toString(),
@@ -181,7 +174,9 @@ export async function addUpcomingProject(
 
   projects.unshift(newProject);
 
-  saveStoredUpcomingProjects(projects);
+  await setDoc(doc(db, "content", "upcoming"), {
+    items: projects,
+  });
 
   return newProject.id;
 }
@@ -191,37 +186,47 @@ export async function updateUpcomingProject(
   data: Partial<UpcomingProject>
 ): Promise<void> {
 
-  const projects = getStoredUpcomingProjects().map((p) =>
+  const projects = await getUpcomingProjects();
+
+  const updated = projects.map((p) =>
     p.id === id ? { ...p, ...data } : p
   );
 
-  saveStoredUpcomingProjects(projects);
+  await setDoc(doc(db, "content", "upcoming"), {
+    items: updated,
+  });
 }
 
 export async function deleteUpcomingProject(id: string): Promise<void> {
 
-  const projects = getStoredUpcomingProjects().filter(
+  const projects = await getUpcomingProjects();
+
+  const filtered = projects.filter(
     (p) => p.id !== id
   );
 
-  saveStoredUpcomingProjects(projects);
+  await setDoc(doc(db, "content", "upcoming"), {
+    items: filtered,
+  });
 }
 
 // ─── About ───────────────────────────────────────────────────────────────────
-const ABOUT_STORAGE_KEY = "codee_about_content";
 
 export async function getAboutContent(): Promise<AboutContent | null> {
-  if (typeof window === "undefined") return null;
+  const snap = await getDoc(doc(db, "content", "about"));
 
-  const data = localStorage.getItem(ABOUT_STORAGE_KEY);
-
-  return data ? JSON.parse(data) : null;
+  return snap.exists()
+    ? snap.data() as AboutContent
+    : null;
 }
 
-export async function updateAboutContent(data: Partial<AboutContent>): Promise<void> {
-  localStorage.setItem(
-    ABOUT_STORAGE_KEY,
-    JSON.stringify(data)
+export async function updateAboutContent(
+  data: Partial<AboutContent>
+): Promise<void> {
+
+  await setDoc(
+    doc(db, "content", "about"),
+    data
   );
 
   console.log("About content saved");
