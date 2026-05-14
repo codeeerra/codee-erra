@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getInquiries, updateInquiry, deleteInquiry } from "@/firebase/services";
 import { Inquiry } from "@/types";
 import toast from "react-hot-toast";
-import { FiMail, FiTrash2, FiX, FiPhone, FiBuilding, FiMessageSquare } from "react-icons/fi";
+import { FiMail, FiTrash2, FiX, FiPhone, FiHome, FiMessageSquare } from "react-icons/fi";
 
 function formatDate(date: any) {
   const d = date?.toDate?.() || new Date(date);
@@ -119,7 +119,7 @@ export default function InquiriesAdminPage() {
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="flex items-center gap-2 text-text-secondary"><FiMail size={12} /><span className="truncate">{selected.email}</span></div>
                     {selected.phone && <div className="flex items-center gap-2 text-text-secondary"><FiPhone size={12} /><span>{selected.phone}</span></div>}
-                    {selected.companyName && <div className="flex items-center gap-2 text-text-secondary col-span-2"><FiBuilding size={12} /><span>{selected.companyName}</span></div>}
+                    {selected.companyName && <div className="flex items-center gap-2 text-text-secondary col-span-2"><FiHome size={12} /><span>{selected.companyName}</span></div>}
                   </div>
                 </div>
 
