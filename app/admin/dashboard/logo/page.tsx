@@ -29,7 +29,7 @@ export default function LogoAdminPage() {
     if (!file) return;
     setUploading(true);
     try {
-      const url = await uploadImage(file, `settings/logo_${Date.now()}`);
+    const url = await uploadImage(file);
       await updateSettings({ logoUrl: url });
       setCurrentLogo(url);
       setPreview(null);
