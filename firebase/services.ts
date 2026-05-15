@@ -39,11 +39,20 @@ export async function deleteImage(): Promise<void> {
 // ─── Products ─────────────────────────────────────────────
 
 export async function getProducts(): Promise<Product[]> {
-  const snap = await getDoc(doc(db, "products", "main"));
+  try {
+    console.log("Trying Firestore...");
 
-  return snap.exists()
-    ? snap.data().items || []
-    : [];
+    const snap = await getDoc(doc(db, "products", "main"));
+
+    console.log("Firestore success", snap.exists());
+
+    return snap.exists()
+      ? snap.data().items || []
+      : [];
+  } catch (error) {
+    console.error("GET PRODUCTS ERROR:", error);
+    return [];
+  }
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
@@ -96,11 +105,16 @@ export async function deleteProduct(id: string): Promise<void> {
 /// ─── News ─────────────────────────────────────────────
 
 export async function getNews(): Promise<NewsItem[]> {
-  const snap = await getDoc(doc(db, "news", "main"));
+  try {
+    const snap = await getDoc(doc(db, "news", "main"));
 
-  return snap.exists()
-    ? snap.data().items || []
-    : [];
+    return snap.exists()
+      ? snap.data().items || []
+      : [];
+  } catch (error) {
+    console.error("GET NEWS ERROR:", error);
+    return [];
+  }
 }
 
 export async function addNews(
@@ -154,10 +168,16 @@ export async function deleteNews(id: string): Promise<void> {
 // ─── Upcoming Projects ─────────────────────────────────────────────
 
 export async function getUpcomingProjects(): Promise<UpcomingProject[]> {
- const snap = await getDoc(doc(db, "upcoming", "main"));
-  return snap.exists()
-    ? snap.data().items || []
-    : [];
+  try {
+    const snap = await getDoc(doc(db, "upcoming", "main"));
+
+    return snap.exists()
+      ? snap.data().items || []
+      : [];
+  } catch (error) {
+    console.error("GET UPCOMING ERROR:", error);
+    return [];
+  }
 }
 
 export async function addUpcomingProject(
@@ -212,11 +232,16 @@ export async function deleteUpcomingProject(id: string): Promise<void> {
 // ─── About ───────────────────────────────────────────────────────────────────
 
 export async function getAboutContent(): Promise<AboutContent | null> {
-  const snap = await getDoc(doc(db, "about", "main"));
+  try {
+    const snap = await getDoc(doc(db, "about", "main"));
 
-  return snap.exists()
-    ? snap.data() as AboutContent
-    : null;
+    return snap.exists()
+      ? (snap.data() as AboutContent)
+      : null;
+  } catch (error) {
+    console.error("GET ABOUT ERROR:", error);
+    return null;
+  }
 }
 
 export async function updateAboutContent(
