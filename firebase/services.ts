@@ -39,7 +39,7 @@ export async function deleteImage(): Promise<void> {
 // ─── Products ─────────────────────────────────────────────
 
 export async function getProducts(): Promise<Product[]> {
-  const snap = await getDoc(doc(db, "content", "products"));
+  const snap = await getDoc(doc(db, "products", "main"));
 
   return snap.exists()
     ? snap.data().items || []
@@ -62,7 +62,7 @@ export async function addProduct(data: Omit<Product, "id">): Promise<string> {
 
   products.unshift(newProduct);
 
-  await setDoc(doc(db, "content", "products"), {
+ await setDoc(doc(db, "products", "main"), {
     items: products,
   });
 
@@ -79,7 +79,7 @@ export async function updateProduct(
     p.id === id ? { ...p, ...data } : p
   );
 
-  await setDoc(doc(db, "content", "products"), {
+ await setDoc(doc(db, "products", "main"), {
     items: updated,
   });
 }
@@ -89,14 +89,14 @@ export async function deleteProduct(id: string): Promise<void> {
 
   const filtered = products.filter((p) => p.id !== id);
 
-  await setDoc(doc(db, "content", "products"), {
+  await setDoc(doc(db, "products", "main"), {
     items: filtered,
   });
 }
 /// ─── News ─────────────────────────────────────────────
 
 export async function getNews(): Promise<NewsItem[]> {
-  const snap = await getDoc(doc(db, "content", "news"));
+  const snap = await getDoc(doc(db, "news", "main"));
 
   return snap.exists()
     ? snap.data().items || []
@@ -116,7 +116,7 @@ export async function addNews(
 
   news.unshift(newItem);
 
-  await setDoc(doc(db, "content", "news"), {
+ await setDoc(doc(db, "news", "main"), {
     items: news,
   });
 
@@ -134,7 +134,7 @@ export async function updateNews(
     n.id === id ? { ...n, ...data } : n
   );
 
-  await setDoc(doc(db, "content", "news"), {
+  await setDoc(doc(db, "news", "main"), {
     items: updated,
   });
 }
@@ -147,15 +147,14 @@ export async function deleteNews(id: string): Promise<void> {
     (n) => n.id !== id
   );
 
-  await setDoc(doc(db, "content", "news"), {
+  await setDoc(doc(db, "news", "main"), {
     items: filtered,
   });
 }
 // ─── Upcoming Projects ─────────────────────────────────────────────
 
 export async function getUpcomingProjects(): Promise<UpcomingProject[]> {
-  const snap = await getDoc(doc(db, "content", "upcoming"));
-
+ const snap = await getDoc(doc(db, "upcoming", "main"));
   return snap.exists()
     ? snap.data().items || []
     : [];
@@ -174,7 +173,7 @@ export async function addUpcomingProject(
 
   projects.unshift(newProject);
 
-  await setDoc(doc(db, "content", "upcoming"), {
+  await setDoc(doc(db, "upcoming", "main"), {
     items: projects,
   });
 
@@ -192,7 +191,7 @@ export async function updateUpcomingProject(
     p.id === id ? { ...p, ...data } : p
   );
 
-  await setDoc(doc(db, "content", "upcoming"), {
+  await setDoc(doc(db, "upcoming", "main"), {
     items: updated,
   });
 }
@@ -205,7 +204,7 @@ export async function deleteUpcomingProject(id: string): Promise<void> {
     (p) => p.id !== id
   );
 
-  await setDoc(doc(db, "content", "upcoming"), {
+  await setDoc(doc(db, "upcoming", "main"), {
     items: filtered,
   });
 }
@@ -213,7 +212,7 @@ export async function deleteUpcomingProject(id: string): Promise<void> {
 // ─── About ───────────────────────────────────────────────────────────────────
 
 export async function getAboutContent(): Promise<AboutContent | null> {
-  const snap = await getDoc(doc(db, "content", "about"));
+  const snap = await getDoc(doc(db, "about", "main"));
 
   return snap.exists()
     ? snap.data() as AboutContent
@@ -224,8 +223,7 @@ export async function updateAboutContent(
   data: Partial<AboutContent>
 ): Promise<void> {
 
-  await setDoc(
-    doc(db, "content", "about"),
+  await setDoc(doc(db, "about", "main"),
     data
   );
 
