@@ -8,7 +8,6 @@ import { HiMenu, HiX } from "react-icons/hi";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Admin", href: "/admin/login" },
 ];
 
 export default function Navbar() {
