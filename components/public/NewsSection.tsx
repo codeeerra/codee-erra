@@ -69,9 +69,7 @@ export default function NewsSection() {
                 <p className="text-text-secondary font-body text-sm leading-relaxed mb-4">
                   {item.description}
                 </p>
-                <button className="flex items-center gap-2 text-accent-cyan text-xs font-display tracking-widest group-hover:gap-3 transition-all">
-                  READ MORE <FiArrowRight size={12} />
-                </button>
+               
               </motion.div>
             ))}
           </div>
