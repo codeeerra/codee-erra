@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { FiTwitter, FiLinkedin, FiGithub, FiInstagram } from "react-icons/fi";
-
+import {
+  FiTwitter,
+  FiLinkedin,
+  FiGithub,
+  FiInstagram,
+  FiKey
+} from "react-icons/fi";
 export default function Footer() {
   return (
     <footer className="relative border-t border-cyan-500/10 bg-bg-primary">
@@ -55,14 +60,28 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-cyan-500/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-text-secondary font-body text-xs tracking-widest">
-            © {new Date().getFullYear()} codee.erra — All rights reserved.
-          </p>
-          <p className="text-text-secondary font-body text-xs tracking-widest">
-            Built with <span className="neon-text-subtle">precision</span> & <span className="neon-text-subtle">vision</span>
-          </p>
-        </div>
+      <div className="mt-12 pt-8 border-t border-cyan-500/10 flex flex-col md:flex-row justify-between items-center gap-4">
+
+  <p className="text-text-secondary font-body text-xs tracking-widest">
+    © {new Date().getFullYear()} codee.erra — All rights reserved.
+  </p>
+
+  <div className="flex items-center gap-4">
+
+    <p className="text-text-secondary font-body text-xs tracking-widest">
+      Built with <span className="neon-text-subtle">precision</span> & <span className="neon-text-subtle">vision</span>
+    </p>
+
+    <Link href="/admin/login">
+      <FiKey
+        size={14}
+        className="text-gray-600 hover:text-cyan-400 transition"
+      />
+    </Link>
+
+  </div>
+
+</div>
       </div>
     </footer>
   );
