@@ -118,9 +118,9 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="font-display font-black text-5xl sm:text-7xl lg:text-8xl leading-none mb-6"
         >
-          <span className="text-white">CODE THE</span>
+          <span className="text-white">SIMPLE TOOLS.</span>
           <br />
-          <span className="gradient-text">FUTURE</span>
+          <span className="gradient-text"> REAL SECURITY.</span>
         </motion.h1>
 
         {/* Subtitle */}
@@ -130,7 +130,7 @@ export default function HeroSection() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="font-body text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-12 leading-relaxed"
         >
-          We build intelligent software systems that redefine what's possible. Premium AI-driven products engineered for tomorrow's challenges.
+         We create simple, effective digital security solutions — starting with USB-based PC protection and expanding to smarter tools.
         </motion.p>
 
         {/* CTA Buttons */}
