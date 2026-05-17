@@ -1,9 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import {
-  FiTwitter,
-  FiLinkedin,
-  FiGithub,
   FiInstagram,
   FiKey
 } from "react-icons/fi";
@@ -12,7 +9,7 @@ export default function Footer() {
     <footer className="relative border-t border-cyan-500/10 bg-bg-primary">
       <div className="absolute inset-0 cyber-grid opacity-30" />
       <div className="relative max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {/* Brand */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
