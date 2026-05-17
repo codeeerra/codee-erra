@@ -102,7 +102,7 @@ export default function ProductsSection() {
             Our <span className="gradient-text">Products</span>
           </h2>
           <p className="mt-4 text-text-secondary font-body text-lg max-w-2xl mx-auto">
-            Cutting-edge software solutions engineered to transform how you operate, compete, and innovate.
+          We build simple and practical security solutions designed to protect your PC and digital access — focused on real-world use, not complexity.
           </p>
         </motion.div>
 
