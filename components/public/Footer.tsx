@@ -26,29 +26,23 @@ export default function Footer() {
             <p className="text-text-secondary font-body text-sm leading-relaxed max-w-xs">
               Building the future through innovative AI-driven software solutions and cutting-edge technology products.
             </p>
-            <div className="flex gap-4">
-              {[FiTwitter, FiLinkedin, FiGithub, FiInstagram].map((Icon, i) => (
-                <a key={i} href="#" className="text-text-secondary hover:text-accent-cyan transition-colors p-2 rounded border border-transparent hover:border-cyan-500/30">
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
+          <div className="flex gap-4">
+
+<a
+ href="https://instagram.com/codee.erra"
+ target="_blank"
+ rel="noopener noreferrer"
+ className="text-text-secondary hover:text-accent-cyan transition-colors p-2 rounded"
+>
+
+<FiInstagram size={18} />
+
+</a>
+
+</div>
           </div>
 
-          {/* Links */}
-          <div>
-            <h4 className="font-display text-xs tracking-widest text-accent-cyan uppercase mb-6">Navigation</h4>
-            <ul className="space-y-3">
-              {["Home", "About", "Products", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link href={item === "Home" ? "/" : `/${item.toLowerCase()}`} className="text-text-secondary hover:text-white font-body text-sm transition-colors">
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
+        
           {/* Contact */}
           <div>
             <h4 className="font-display text-xs tracking-widest text-accent-cyan uppercase mb-6">Contact</h4>
